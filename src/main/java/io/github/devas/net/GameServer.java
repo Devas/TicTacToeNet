@@ -1,4 +1,4 @@
-package io.github.devas.a;
+package io.github.devas.net;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -6,7 +6,7 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.Optional;
 
-import static io.github.devas.a.TimeStamp.getTimeStamp;
+import static io.github.devas.net.TimeStamp.getTimeStamp;
 
 class GameServer implements Server {
 
@@ -29,7 +29,7 @@ class GameServer implements Server {
             ServerSocket serverSocket = new ServerSocket(port);
             System.out.println(getTimeStamp() + "Server initialized and running");
             do {
-                System.out.println("\n" + getTimeStamp() + "Connections alive: " + connections + " | Listening for a connection ...");
+                System.out.println("\n" + getTimeStamp() + "Connections alive: " + connections + " | Listening for net connection ...");
                 Socket socket = serverSocket.accept();
                 // New connection ...
 

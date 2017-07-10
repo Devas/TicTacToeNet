@@ -57,7 +57,7 @@ class TicTacToeGame extends Game1vs1 {
     }
 
     /**
-     * Handles moves and asks to press input again if move is out of board or a move has been done already
+     * Handles moves and asks to press input again if move is out of board or net move has been done already
      */
     private Position2D handleInputCoords() {
         Scanner s = new Scanner(System.in);

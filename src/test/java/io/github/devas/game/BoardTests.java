@@ -71,7 +71,7 @@ public class BoardTests {
     public void testFillingBoardWithAlphabet() {
         Board board = new ConsoleBoard(3, 3);
         board.setAllWithAlphabet();
-        softAssert.assertEquals(board.getValueAt(0, 0), "a");
+        softAssert.assertEquals(board.getValueAt(0, 0), "net");
         softAssert.assertEquals(board.getValueAt(2, 2), "i");
         softAssert.assertAll();
     }
@@ -90,7 +90,7 @@ public class BoardTests {
         ConsoleBoard board = new ConsoleBoard(3, 3);
         board.setAllWithAlphabet();
         String diagonals = board.drawDiagonals();
-        assertEquals(diagonals, "a \n" +
+        assertEquals(diagonals, "net \n" +
                 "d b \n" +
                 "g e c \n" +
                 "h f \n" +

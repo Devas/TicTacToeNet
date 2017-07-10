@@ -1,4 +1,4 @@
-package io.github.devas.a;
+package io.github.devas.net;
 
 /**
  * Run() method from Runnable should handle the connection.

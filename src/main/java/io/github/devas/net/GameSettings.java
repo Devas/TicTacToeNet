@@ -1,4 +1,4 @@
-package io.github.devas.a;
+package io.github.devas.net;
 
 class GameSettings implements Settings {
 

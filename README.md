@@ -6,10 +6,10 @@
 - Adding README.md DOEN
 - What the game does DONE
 - How to run DONE
-- List of tests
+- List of tests DONE
 - Adding .gitignore DONE
-- CRC
-- At least 60% test coverage: 85% classes, 59% method, 52% lines
+- CRC DONE
+- At least 60% test coverage: 85% classes, 59% method, 52% lines DONE
 
 ### Functional requirements
 - It is "best of three", though I can quit mid-way through. DONE
@@ -30,11 +30,11 @@
     - Game messages should have configurable target: console (System.out) or logs (for the sake of this exercise it’s OK to make it System.err), or external printer. DONE
     - before game starts it asks who goes first, O or X DONE
     - We are bi-lingual: Polish and English are fine. In future we want to add more languages: messages are to be read from a file for chosen language. Choosing the language depends on configuration variable. DONE
+- I can play through network (not on one machine) - partly done
 
 ### Extra requirements
 - GUI
 - I can play against computer
-- I can play through network (not on one machine)
 
 ### Running
 - Go to: TicTacToeMvn\target\classes\

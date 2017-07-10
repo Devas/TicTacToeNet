@@ -1,4 +1,4 @@
-package io.github.devas.a;
+package io.github.devas.net;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
