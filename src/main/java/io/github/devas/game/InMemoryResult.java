@@ -41,13 +41,6 @@ class InMemoryResult implements Result, Comparable<InMemoryResult> {
     }
 
     @Override
-    public String toString() {
-        return "InMemoryResult{" +
-                "score=" + score +
-                '}';
-    }
-
-    @Override
     public int compareTo(InMemoryResult o) {
         if (score > o.score)
             return 1;

@@ -1,24 +1,20 @@
-package io.github.devas.managers;
+package io.github.devas.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Properties;
 
-public class ConfigurationManager implements Manager {
+public class ConfigurationManager {
 
     private final String configFileName = "src/main/resources/config.properties";
-    private Properties configProperties = new Properties();
+    private final Properties properties = PropertiesLoader.loadProperties(configFileName);
     private PrintStream printStream = System.out;
 
     public ConfigurationManager() {
-        loadConfigProperties();
         initOutputMessagesTarget();
     }
 
     public String get(String key) {
-        return configProperties.get(key).toString();
+        return properties.get(key).toString();
     }
 
     public void print(String message) {
@@ -31,15 +27,6 @@ public class ConfigurationManager implements Manager {
 
     public void println() {
         printStream.println();
-    }
-
-    private void loadConfigProperties() {
-        try (FileInputStream fileInputStream = new FileInputStream(new File(configFileName))) {
-            configProperties.load(fileInputStream);
-        } catch (IOException e) {
-            System.err.println("Couldn't load configuration properties");
-            e.printStackTrace();
-        }
     }
 
     /**

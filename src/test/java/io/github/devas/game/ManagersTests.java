@@ -1,7 +1,7 @@
 package io.github.devas.game;
 
-import io.github.devas.managers.ConfigurationManager;
-import io.github.devas.managers.LocalizationManager;
+import io.github.devas.util.ConfigurationManager;
+import io.github.devas.util.LocalizationManager;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -11,7 +11,6 @@ public class ManagersTests {
 
     public void testLoadingLocalization() {
         LocalizationManager localizationManager = new LocalizationManager("ENG");
-        localizationManager.loadLocalization();
         assertEquals(localizationManager.get("turn"), "\n*** Turn ");
     }
 

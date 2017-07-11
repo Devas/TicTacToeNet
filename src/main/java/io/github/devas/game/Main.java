@@ -1,7 +1,8 @@
 package io.github.devas.game;
 
-import io.github.devas.managers.ConfigurationManager;
-import io.github.devas.managers.LocalizationManager;
+import io.github.devas.util.ConfigurationManager;
+import io.github.devas.util.LocalizationManager;
+import io.github.devas.util.Vector2i;
 
 import java.util.Scanner;
 
@@ -9,39 +10,36 @@ class Main {
 
     public static void main(String[] args) {
         Main main = new Main();
-        main.initAndRunGame();
+        main.initGame();
     }
 
-    private void initAndRunGame() {
-        Scanner s = new Scanner(System.in);
+    private void initGame() {
+        TicTacToeSettings settings = new TicTacToeSettings();
 
         ConfigurationManager configManager = new ConfigurationManager();
+        settings.setConfigurationManager(configManager);
 
-        String locale = askForLocale(configManager);
-        LocalizationManager localizationManager = new LocalizationManager(locale);
-        localizationManager.loadLocalization();
+        LocalizationManager localizationManager = new LocalizationManager(askForLocale(configManager));
+        settings.setLocalizationManager(localizationManager);
 
         configManager.println(localizationManager.get("greeting"));
 
-        HumanPlayer playerO = new HumanPlayer(configManager.get("playera"), Symbol.O.asString);
-        HumanPlayer playerX = new HumanPlayer(configManager.get("playerb"), Symbol.X.asString);
+        settings.setPlayerO(new HumanPlayer(configManager.get("playerO"), Symbol.o.toString()));
+        settings.setPlayerX(new HumanPlayer(configManager.get("playerX"), Symbol.x.toString()));
+        settings.setBoardSize(askForBoardSize(configManager, localizationManager));
+        settings.setMarksToWin(askForMarksToWin(configManager, localizationManager));
 
-        Position2D boardSize = askForBoardSize(configManager, localizationManager);
+        TicTacToeGame game = new TicTacToeGame(settings);
 
-        int marksToWin = askForMarksToWin(configManager, localizationManager);
-
-        TicTacToeGame game = new TicTacToeGame(playerO, playerX, boardSize.getX(), boardSize.getY(), marksToWin, configManager, localizationManager);
-
-        configManager.print(playerO.getName() + localizationManager.get("whofirst"));
-        if (s.next().equalsIgnoreCase("y")) {
+        configManager.print(settings.getPlayerO().getName() + localizationManager.get("whofirst"));
+        Scanner scanner = new Scanner(System.in);
+        if (scanner.next().equalsIgnoreCase("y")) {
             game.setInitialTurnPlayerA();
         } else {
             game.setInitialTurnPlayerB();
         }
 
-        while (!game.isFinished()) {
-            game.startGame();
-        }
+        game.mainGameLoop();
     }
 
     /**
@@ -49,11 +47,11 @@ class Main {
      */
     private String askForLocale(ConfigurationManager configManager) {
         configManager.println("Locale settings | 'E' English | 'P' Polish | Press key: ");
-        Scanner s = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         String lang;
 
         do {
-            lang = s.next();
+            lang = scanner.next();
         } while (!lang.matches("[A-Za-z]"));
 
         switch (lang.toUpperCase()) {
@@ -66,28 +64,27 @@ class Main {
         }
     }
 
-    private Position2D askForBoardSize(ConfigurationManager configManager, LocalizationManager localizationManager) {
-        final int minBoardSize = 1;
-        Scanner s = new Scanner(System.in);
-        int x = 0;
-        int y = 0;
+    private Vector2i askForBoardSize(ConfigurationManager configManager, LocalizationManager localizationManager) {
+        final int MIN_BOARD_SIZE = 1;
+        Scanner scanner = new Scanner(System.in);
+        Vector2i boardSize = new Vector2i();
         do {
             configManager.print(localizationManager.get("xboardsize"));
-            x = s.nextInt();
+            boardSize.setX(scanner.nextInt());
             configManager.print(localizationManager.get("yboardsize"));
-            y = s.nextInt();
-        } while (x < minBoardSize || y < minBoardSize);
-        return new Position2D(x, y);
+            boardSize.setY(scanner.nextInt());
+        } while (boardSize.getX() < MIN_BOARD_SIZE || boardSize.getY() < MIN_BOARD_SIZE);
+        return boardSize;
     }
 
     private int askForMarksToWin(ConfigurationManager configManager, LocalizationManager localizationManager) {
-        final int minMarksToWin = 3;
-        Scanner s = new Scanner(System.in);
-        int marksToWin = 0;
+        final int MIN_MARKS_TO_WIN = 3;
+        Scanner scanner = new Scanner(System.in);
+        int marksToWin;
         do {
             configManager.print(localizationManager.get("marks"));
-            marksToWin = s.nextInt();
-        } while (marksToWin < minMarksToWin);
+            marksToWin = scanner.nextInt();
+        } while (marksToWin < MIN_MARKS_TO_WIN);
         return marksToWin;
     }
 

@@ -1,17 +1,17 @@
 package io.github.devas.game;
 
+import io.github.devas.util.Vector2i;
+
 abstract class Board implements World {
 
     final int sixeX;
     final int sixeY;
-    private final int area;
     final String[][] board;
     private final String FILL_UP_STRING = "*";
 
-    Board(int sixeX, int sixeY) {
-        this.sixeX = sixeX;
-        this.sixeY = sixeY;
-        this.area = sixeX * sixeY;
+    Board(Vector2i boardSize) {
+        this.sixeX = boardSize.getX();
+        this.sixeY = boardSize.getY();
         this.board = new String[sixeX][sixeY];
         setAll(FILL_UP_STRING);
     }
@@ -25,7 +25,7 @@ abstract class Board implements World {
     }
 
     int getArea() {
-        return area;
+        return sixeX * sixeY;
     }
 
     String[][] getBoard() {
@@ -36,7 +36,7 @@ abstract class Board implements World {
         return board[x][y];
     }
 
-    String getValueAt(Position2D position) {
+    String getValueAt(Vector2i position) {
         return board[position.getX()][position.getY()];
     }
 
@@ -44,7 +44,7 @@ abstract class Board implements World {
         board[x][y] = value;
     }
 
-    void setValueAt(Position2D position, String value) {
+    void setValueAt(Vector2i position, String value) {
         board[position.getX()][position.getY()] = value;
     }
 
@@ -80,18 +80,6 @@ abstract class Board implements World {
             }
         }
         return true;
-    }
-
-    /**
-     * Only for tests
-     */
-    void setAllWithAlphabet() {
-        char ch = 'a';
-        for (int y = 0; y < sixeY; y++) {
-            for (int x = 0; x < sixeX; x++, ch++) {
-                board[x][y] = String.valueOf(ch);
-            }
-        }
     }
 
 }

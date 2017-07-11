@@ -1,12 +1,14 @@
 package io.github.devas.net;
 
+import io.github.devas.util.TimeStamp;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Optional;
 
-import static io.github.devas.net.TimeStamp.getTimeStamp;
+import static io.github.devas.util.TimeStamp.getTimeStamp;
 
 class GameServer implements Server {
 

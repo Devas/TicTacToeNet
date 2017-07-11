@@ -1,5 +1,6 @@
 package io.github.devas.game;
 
+import io.github.devas.util.Vector2i;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -9,7 +10,7 @@ public class WinnerCheckerTests {
     private SoftAssert softAssert = new SoftAssert();
 
     public void testDoesTurnStatusTellIfGameIsWonOrNotWon() {
-        Board board = new ConsoleBoard(3, 3);
+        Board board = new ConsoleBoard(new Vector2i(3, 3));
         WinnerChecker winnerChecker = new WinnerChecker(board, 3);
         String x = "x";
         board.setValueAt(0, 0, x);

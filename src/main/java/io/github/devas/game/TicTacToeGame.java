@@ -1,7 +1,8 @@
 package io.github.devas.game;
 
-import io.github.devas.managers.ConfigurationManager;
-import io.github.devas.managers.LocalizationManager;
+import io.github.devas.util.ConfigurationManager;
+import io.github.devas.util.LocalizationManager;
+import io.github.devas.util.Vector2i;
 
 import java.util.Scanner;
 
@@ -10,24 +11,26 @@ import java.util.Scanner;
  */
 class TicTacToeGame extends Game1vs1 {
 
-    private ConfigurationManager configManager;
-    private LocalizationManager localizationManager;
     private ConsoleBoard board;
     private WinnerChecker winnerChecker;
-    private static int turnNumber;
+    private ConfigurationManager configManager;
+    private LocalizationManager localizationManager;
+    private int turnNumber;
 
-    TicTacToeGame(Player playerA, Player playerB, int sizeX, int sizeY, int marksToWin, ConfigurationManager conf, LocalizationManager loc) {
-        super(playerA, playerB);
-        configManager = conf;
-        localizationManager = loc;
-        board = new ConsoleBoard(sizeX, sizeY);
-        winnerChecker = new WinnerChecker(board, marksToWin);
+    TicTacToeGame(TicTacToeSettings settings) {
+        super(settings.getPlayerO(), settings.getPlayerX());
+        this.board = new ConsoleBoard(settings.getBoardSize());
+        this.winnerChecker = new WinnerChecker(board, settings.getMarksToWin());
+        this.configManager = settings.getConfigurationManager();
+        this.localizationManager = settings.getLocalizationManager();
     }
 
     @Override
-    public void startGame() {
+    public void mainGameLoop() {
         while (!isFinished()) {
-            runSingleTurn();
+            while (!isFinished()) {
+                runSingleTurn();
+            }
         }
     }
 
@@ -35,7 +38,7 @@ class TicTacToeGame extends Game1vs1 {
         turnNumber++;
         configManager.println(localizationManager.get("turn") + turnNumber + " ***");
         configManager.println(getPlayerA() + " | " + getPlayerB());
-        Position2D position = handleInputCoords();
+        Vector2i position = handleInputCoords();
         BoardMove playersMove = new BoardMove(position);
         getCurrentPlayer().addMove(playersMove);
         board.setValueAt(playersMove.getPosition(), getCurrentPlayer().getNick());
@@ -59,21 +62,21 @@ class TicTacToeGame extends Game1vs1 {
     /**
      * Handles moves and asks to press input again if move is out of board or net move has been done already
      */
-    private Position2D handleInputCoords() {
-        Scanner s = new Scanner(System.in);
+    private Vector2i handleInputCoords() {
+        Scanner scanner = new Scanner(System.in);
         configManager.println(localizationManager.get("nowplays") + getCurrentPlayer().getName());
-        Position2D pos = new Position2D();
+        Vector2i position = new Vector2i();
         Move move;
         do {
-            configManager.println(localizationManager.get("xcoord"));
-            pos.setX(s.nextInt() - 1);
-            configManager.println(localizationManager.get("ycoord"));
-            pos.setY(s.nextInt() - 1);
-            move = new BoardMove(pos);
+            configManager.print(localizationManager.get("xcoord"));
+            position.setX(scanner.nextInt() - 1);
+            configManager.print(localizationManager.get("ycoord"));
+            position.setY(scanner.nextInt() - 1);
+            move = new BoardMove(position);
         }
-        while (pos.getX() < 0 || pos.getY() < 0 || pos.getX() >= board.getSixeX() || pos.getY() >= board.getSixeY() ||
+        while (position.getX() < 0 || position.getY() < 0 || position.getX() >= board.getSixeX() || position.getY() >= board.getSixeY() ||
                 getPlayerA().hasMoved(move) || getPlayerB().hasMoved(move));
-        return pos;
+        return position;
     }
 
     /**
@@ -107,8 +110,8 @@ class TicTacToeGame extends Game1vs1 {
      */
     private boolean shouldGameEndBasedOnInput() {
         configManager.print(localizationManager.get("again"));
-        Scanner s = new Scanner(System.in);
-        return s.next().equalsIgnoreCase("n");
+        Scanner scanner = new Scanner(System.in);
+        return scanner.next().equalsIgnoreCase("n");
     }
 
 }

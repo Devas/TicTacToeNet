@@ -13,6 +13,6 @@ abstract class AbstractGame implements Game {
     }
 
     @Override
-    public abstract void startGame();
+    public abstract void mainGameLoop();
 
 }

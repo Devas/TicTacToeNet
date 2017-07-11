@@ -1,9 +1,11 @@
 package io.github.devas.game;
 
+import io.github.devas.util.Vector2i;
+
 class ConsoleBoard extends Board implements Drawable {
 
-    ConsoleBoard(int sixeX, int sixeY) {
-        super(sixeX, sixeY);
+    ConsoleBoard(Vector2i boardSize) {
+        super(boardSize);
     }
 
     @Override

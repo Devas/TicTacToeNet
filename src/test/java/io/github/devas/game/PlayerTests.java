@@ -1,5 +1,6 @@
 package io.github.devas.game;
 
+import io.github.devas.util.Vector2i;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -36,8 +37,8 @@ public class PlayerTests {
 
     public void testAddingGettingResettingPlayersMoves() {
         softAssert.assertEquals(playerO.getMoves(), new ArrayList<Move>());
-        playerO.addMove(new BoardMove(new Position2D(1, 1)));
-        softAssert.assertEquals(playerO.getMoves(), new ArrayList<>().add(new Position2D(1, 1)));
+        playerO.addMove(new BoardMove(new Vector2i(1, 1)));
+        softAssert.assertEquals(playerO.getMoves(), new ArrayList<>().add(new Vector2i(1, 1)));
         playerO.resetMoves();
         softAssert.assertEquals(playerO.getMoves(), new ArrayList<Move>());
         softAssert.assertAll();

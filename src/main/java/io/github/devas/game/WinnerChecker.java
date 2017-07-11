@@ -1,5 +1,7 @@
 package io.github.devas.game;
 
+import io.github.devas.util.Vector2i;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,14 +47,14 @@ class WinnerChecker {
     }
 
     private TurnStatus checkRows(String value) throws ArrayIndexOutOfBoundsException {
-        List<Position2D> positions = new ArrayList<>();
+        List<Vector2i> positions = new ArrayList<>();
         for (int y = 0; y < board.sixeY; y++) {
             positions.clear();
             int count = 0;
             for (int x = 0; x < board.sixeX; x++) {
                 if (board.getBoard()[x][y].equals(value)) {
                     count++;
-                    positions.add(new Position2D(x, y));
+                    positions.add(new Vector2i(x, y));
                 }
                 if (count == marksToWin) {
                     markPositionsToUpperCase(positions);
@@ -64,14 +66,14 @@ class WinnerChecker {
     }
 
     private TurnStatus checkColumns(String value) throws ArrayIndexOutOfBoundsException {
-        List<Position2D> positions = new ArrayList<>();
+        List<Vector2i> positions = new ArrayList<>();
         for (int x = 0; x < board.sixeX; x++) {
             positions.clear();
             int count = 0;
             for (int y = 0; y < board.sixeY; y++) {
                 if (board.getBoard()[x][y].equals(value)) {
                     count++;
-                    positions.add(new Position2D(x, y));
+                    positions.add(new Vector2i(x, y));
                 }
                 if (count == marksToWin) {
                     markPositionsToUpperCase(positions);
@@ -83,7 +85,7 @@ class WinnerChecker {
     }
 
     private TurnStatus checkDiagonals(String value) throws ArrayIndexOutOfBoundsException {
-        ArrayList<ArrayList<Position2D>> diagonals = new ArrayList<>();
+        ArrayList<ArrayList<Vector2i>> diagonals = new ArrayList<>();
         int index = 0;
 
         int cols = board.sixeY;
@@ -95,7 +97,7 @@ class WinnerChecker {
             x = 0;
             diagonals.add(new ArrayList<>());
             while (y < cols) {
-                diagonals.get(index).add(new Position2D(x, y));
+                diagonals.get(index).add(new Vector2i(x, y));
                 x++;
                 y++;
             }
@@ -109,7 +111,7 @@ class WinnerChecker {
             y = 0;
             diagonals.add(new ArrayList<>());
             while (x < rows) {
-                diagonals.get(index).add(new Position2D(x, y));
+                diagonals.get(index).add(new Vector2i(x, y));
                 x++;
                 y++;
             }
@@ -122,7 +124,7 @@ class WinnerChecker {
     }
 
     private TurnStatus checkAntiDiagonals(String value) throws ArrayIndexOutOfBoundsException {
-        ArrayList<ArrayList<Position2D>> diagonals = new ArrayList<>();
+        ArrayList<ArrayList<Vector2i>> diagonals = new ArrayList<>();
         int index = 0;
 
         int cols = board.sixeY;
@@ -134,7 +136,7 @@ class WinnerChecker {
             x = 0;
             diagonals.add(new ArrayList<>());
             while (y >= 0 && x < rows) {
-                diagonals.get(index).add(new Position2D(x, y));
+                diagonals.get(index).add(new Vector2i(x, y));
                 x++;
                 y--;
             }
@@ -148,7 +150,7 @@ class WinnerChecker {
             y = cols - 1;
             diagonals.add(new ArrayList<>());
             while (x < rows) {
-                diagonals.get(index).add(new Position2D(x, y));
+                diagonals.get(index).add(new Vector2i(x, y));
                 x++;
                 y--;
             }
@@ -160,10 +162,10 @@ class WinnerChecker {
         return TurnStatus.NONE_WON;
     }
 
-    private boolean markDiagonal(String value, ArrayList<ArrayList<Position2D>> diagonals) {
-        for (ArrayList<Position2D> diagonal : diagonals) {
-            List<Position2D> valuePositions = new ArrayList<>();
-            for (Position2D position : diagonal) {
+    private boolean markDiagonal(String value, ArrayList<ArrayList<Vector2i>> diagonals) {
+        for (ArrayList<Vector2i> diagonal : diagonals) {
+            List<Vector2i> valuePositions = new ArrayList<>();
+            for (Vector2i position : diagonal) {
 //                System.out.print("[" + position.getX() + "," + position.getY() + "] ");
                 if (board.getBoard()[position.getX()][position.getY()].equals(value)) {
                     valuePositions.add(position);
@@ -178,8 +180,8 @@ class WinnerChecker {
         return false;
     }
 
-    private void markPositionsToUpperCase(List<Position2D> list) {
-        for (Position2D p : list) {
+    private void markPositionsToUpperCase(List<Vector2i> list) {
+        for (Vector2i p : list) {
             board.getBoard()[p.getX()][p.getY()] = board.getBoard()[p.getX()][p.getY()].toUpperCase();
         }
     }

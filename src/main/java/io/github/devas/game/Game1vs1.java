@@ -12,7 +12,7 @@ abstract class Game1vs1 extends AbstractGame {
     }
 
     @Override
-    public abstract void startGame();
+    public abstract void mainGameLoop();
 
     Player getPlayerA() {
         return playerA;

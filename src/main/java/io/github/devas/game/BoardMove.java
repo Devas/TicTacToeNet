@@ -1,30 +1,25 @@
 package io.github.devas.game;
 
+import io.github.devas.util.Vector2i;
+
 /**
- * Represents net single move on board.
- * Additionally we can define here other activities connected with single move.
+ * Represents a single move on board.
+ * Additionally we can define here other activities connected with a single move.
  */
 class BoardMove implements Move {
 
-    private Position2D position;
+    private Vector2i position;
 
-    BoardMove(Position2D position) {
+    BoardMove(Vector2i position) {
         this.position = position;
     }
 
-    Position2D getPosition() {
+    Vector2i getPosition() {
         return position;
     }
 
-    void setPosition(Position2D position) {
+    void setPosition(Vector2i position) {
         this.position = position;
-    }
-
-    @Override
-    public String toString() {
-        return "BoardMove{" +
-                "position=" + position +
-                '}';
     }
 
     @Override

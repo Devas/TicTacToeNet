@@ -1,42 +1,37 @@
-package io.github.devas.game;
+package io.github.devas.util;
 
-class Position2D implements Position {
+/**
+ * 2D vector for storing integers.
+ */
+public class Vector2i {
 
     private int x;
     private int y;
 
-    Position2D() {
+    public Vector2i() {
         this.x = 0;
         this.y = 0;
     }
 
-    Position2D(int x, int y) {
+    public Vector2i(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    int getX() {
+    public int getX() {
         return x;
     }
 
-    void setX(int x) {
+    public void setX(int x) {
         this.x = x;
     }
 
-    int getY() {
+    public int getY() {
         return y;
     }
 
-    void setY(int y) {
+    public void setY(int y) {
         this.y = y;
-    }
-
-    @Override
-    public String toString() {
-        return "Position2D{" +
-                "x=" + x +
-                ", y=" + y +
-                '}';
     }
 
     @Override
@@ -44,10 +39,9 @@ class Position2D implements Position {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Position2D that = (Position2D) o;
+        Vector2i that = (Vector2i) o;
 
-        if (x != that.x) return false;
-        return y == that.y;
+        return x == that.x && y == that.y;
     }
 
     @Override
