@@ -3,13 +3,13 @@ package io.github.devas.util;
 import java.io.PrintStream;
 import java.util.Properties;
 
-public class ConfigurationManager {
+public class ConfigurationLoader {
 
     private final String configFileName = "src/main/resources/config.properties";
     private final Properties properties = PropertiesLoader.loadProperties(configFileName);
     private PrintStream printStream = System.out;
 
-    public ConfigurationManager() {
+    public ConfigurationLoader() {
         initOutputMessagesTarget();
     }
 

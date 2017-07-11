@@ -2,30 +2,30 @@ package io.github.devas.game;
 
 import io.github.devas.util.Vector2i;
 
-abstract class Board implements World {
+abstract class Board {
 
-    final int sixeX;
-    final int sixeY;
+    final int sizeX;
+    final int sizeY;
     final String[][] board;
     private final String FILL_UP_STRING = "*";
 
     Board(Vector2i boardSize) {
-        this.sixeX = boardSize.getX();
-        this.sixeY = boardSize.getY();
-        this.board = new String[sixeX][sixeY];
-        setAll(FILL_UP_STRING);
+        this.sizeX = boardSize.getX();
+        this.sizeY = boardSize.getY();
+        this.board = new String[sizeX][sizeY];
+        reset();
     }
 
-    int getSixeX() {
-        return sixeX;
+    int getSizeX() {
+        return sizeX;
     }
 
-    int getSixeY() {
-        return sixeY;
+    int getSizeY() {
+        return sizeY;
     }
 
     int getArea() {
-        return sixeX * sixeY;
+        return sizeX * sizeY;
     }
 
     String[][] getBoard() {
@@ -54,8 +54,8 @@ abstract class Board implements World {
      * @param value String used to fill up the board
      */
     void setAll(String value) {
-        for (int y = 0; y < sixeY; y++) {
-            for (int x = 0; x < sixeX; x++) {
+        for (int y = 0; y < sizeY; y++) {
+            for (int x = 0; x < sizeX; x++) {
                 board[x][y] = value;
             }
         }
@@ -72,8 +72,8 @@ abstract class Board implements World {
      * Returns whether board contains any String different from the default filling up String.
      */
     boolean isFilledUpWithDefaultString() {
-        for (int y = 0; y < sixeY; y++) {
-            for (int x = 0; x < sixeX; x++) {
+        for (int y = 0; y < sizeY; y++) {
+            for (int x = 0; x < sizeX; x++) {
                 if (!board[x][y].equals(FILL_UP_STRING)) {
                     return false;
                 }

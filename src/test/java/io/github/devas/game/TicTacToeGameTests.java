@@ -1,7 +1,7 @@
 package io.github.devas.game;
 
-import io.github.devas.util.ConfigurationManager;
-import io.github.devas.util.LocalizationManager;
+import io.github.devas.util.ConfigurationLoader;
+import io.github.devas.util.LocalizationLoader;
 import io.github.devas.util.Vector2i;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -24,9 +24,7 @@ public class TicTacToeGameTests {
         settings.setPlayerX(new HumanPlayer("David", Symbol.x.toString()));
         settings.setBoardSize(new Vector2i(3, 3));
         settings.setMarksToWin(3);
-        settings.setConfigurationManager(new ConfigurationManager());
-        settings.setLocalizationManager(new LocalizationManager("ENG"));
-        game = new TicTacToeGame(settings);
+        game = new TicTacToeGame(settings, new ConfigurationLoader(), new LocalizationLoader("ENG"));
     }
 
     public void testIsGameInitiallyNotFinished() {

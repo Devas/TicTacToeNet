@@ -15,7 +15,7 @@ class WinnerChecker {
 
     WinnerChecker(Board board, int usersMarksToWin) {
         this.board = board;
-        int minSize = Math.min(board.sixeX, board.sixeY);
+        int minSize = Math.min(board.sizeX, board.sizeY);
         this.marksToWin = Math.min(minSize, usersMarksToWin);
     }
 
@@ -48,10 +48,10 @@ class WinnerChecker {
 
     private TurnStatus checkRows(String value) throws ArrayIndexOutOfBoundsException {
         List<Vector2i> positions = new ArrayList<>();
-        for (int y = 0; y < board.sixeY; y++) {
+        for (int y = 0; y < board.sizeY; y++) {
             positions.clear();
             int count = 0;
-            for (int x = 0; x < board.sixeX; x++) {
+            for (int x = 0; x < board.sizeX; x++) {
                 if (board.getBoard()[x][y].equals(value)) {
                     count++;
                     positions.add(new Vector2i(x, y));
@@ -67,10 +67,10 @@ class WinnerChecker {
 
     private TurnStatus checkColumns(String value) throws ArrayIndexOutOfBoundsException {
         List<Vector2i> positions = new ArrayList<>();
-        for (int x = 0; x < board.sixeX; x++) {
+        for (int x = 0; x < board.sizeX; x++) {
             positions.clear();
             int count = 0;
-            for (int y = 0; y < board.sixeY; y++) {
+            for (int y = 0; y < board.sizeY; y++) {
                 if (board.getBoard()[x][y].equals(value)) {
                     count++;
                     positions.add(new Vector2i(x, y));
@@ -88,8 +88,8 @@ class WinnerChecker {
         ArrayList<ArrayList<Vector2i>> diagonals = new ArrayList<>();
         int index = 0;
 
-        int cols = board.sixeY;
-        int rows = board.sixeX;
+        int cols = board.sizeY;
+        int rows = board.sizeX;
 
         int x, y;
         for (int i = cols - 1; i > 0; i--) {
@@ -105,7 +105,7 @@ class WinnerChecker {
         }
 
         int i = 0;
-//        if (sixeX % 2 == 0) i = 0;
+//        if (sizeX % 2 == 0) i = 0;
         for (; i < rows; i++) {
             x = i;
             y = 0;
@@ -127,8 +127,8 @@ class WinnerChecker {
         ArrayList<ArrayList<Vector2i>> diagonals = new ArrayList<>();
         int index = 0;
 
-        int cols = board.sixeY;
-        int rows = board.sixeX;
+        int cols = board.sizeY;
+        int rows = board.sizeX;
 
         int x, y;
         for (int i = 0; i < cols; i++) {
@@ -144,7 +144,7 @@ class WinnerChecker {
         }
 
         int i = 0;
-//        if (sixeX == sixeY) i = 0;
+//        if (sizeX == sizeY) i = 0;
         for (; i < rows; i++) {
             x = i;
             y = cols - 1;

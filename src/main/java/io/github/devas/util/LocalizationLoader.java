@@ -2,14 +2,14 @@ package io.github.devas.util;
 
 import java.util.Properties;
 
-public class LocalizationManager {
+public class LocalizationLoader {
 
     private final String resourcesPath;
     private final String localizationName;
     private final String localizationFileName;
     private final Properties properties;
 
-    public LocalizationManager(String localizationName) {
+    public LocalizationLoader(String localizationName) {
         this.resourcesPath = "src/main/resources/";
         this.localizationName = localizationName.toUpperCase();
         this.localizationFileName = "localization" + this.localizationName + ".properties";

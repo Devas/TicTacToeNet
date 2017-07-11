@@ -1,7 +1,5 @@
 package io.github.devas.game;
 
-import io.github.devas.util.ConfigurationManager;
-import io.github.devas.util.LocalizationManager;
 import io.github.devas.net.Settings;
 import io.github.devas.util.Vector2i;
 
@@ -12,8 +10,6 @@ class TicTacToeSettings implements Settings {
     private Player firsPlayingPlayer;
     private Vector2i boardSize;
     private int marksToWin;
-    private ConfigurationManager configurationManager;
-    private LocalizationManager localizationManager;
 
     Player getPlayerO() {
         return playerO;
@@ -53,22 +49,6 @@ class TicTacToeSettings implements Settings {
 
     void setMarksToWin(int marksToWin) {
         this.marksToWin = marksToWin;
-    }
-
-    ConfigurationManager getConfigurationManager() {
-        return configurationManager;
-    }
-
-    void setConfigurationManager(ConfigurationManager configurationManager) {
-        this.configurationManager = configurationManager;
-    }
-
-    LocalizationManager getLocalizationManager() {
-        return localizationManager;
-    }
-
-    void setLocalizationManager(LocalizationManager localizationManager) {
-        this.localizationManager = localizationManager;
     }
 
 }

@@ -1,7 +1,7 @@
 package io.github.devas.game;
 
-import io.github.devas.util.ConfigurationManager;
-import io.github.devas.util.LocalizationManager;
+import io.github.devas.util.ConfigurationLoader;
+import io.github.devas.util.LocalizationLoader;
 import io.github.devas.util.Vector2i;
 
 import java.util.Scanner;
@@ -13,16 +13,16 @@ class TicTacToeGame extends Game1vs1 {
 
     private ConsoleBoard board;
     private WinnerChecker winnerChecker;
-    private ConfigurationManager configManager;
-    private LocalizationManager localizationManager;
+    private ConfigurationLoader configurationLoader;
+    private LocalizationLoader localizationLoader;
     private int turnNumber;
 
-    TicTacToeGame(TicTacToeSettings settings) {
+    TicTacToeGame(TicTacToeSettings settings, ConfigurationLoader configurationLoader, LocalizationLoader localizationLoader) {
         super(settings.getPlayerO(), settings.getPlayerX());
         this.board = new ConsoleBoard(settings.getBoardSize());
         this.winnerChecker = new WinnerChecker(board, settings.getMarksToWin());
-        this.configManager = settings.getConfigurationManager();
-        this.localizationManager = settings.getLocalizationManager();
+        this.configurationLoader = configurationLoader;
+        this.localizationLoader = localizationLoader;
     }
 
     @Override
@@ -36,24 +36,24 @@ class TicTacToeGame extends Game1vs1 {
 
     private void runSingleTurn() {
         turnNumber++;
-        configManager.println(localizationManager.get("turn") + turnNumber + " ***");
-        configManager.println(getPlayerA() + " | " + getPlayerB());
+        configurationLoader.println(localizationLoader.get("turn") + turnNumber + " ***");
+        configurationLoader.println(getPlayerA() + " | " + getPlayerB());
         Vector2i position = handleInputCoords();
         BoardMove playersMove = new BoardMove(position);
         getCurrentPlayer().addMove(playersMove);
         board.setValueAt(playersMove.getPosition(), getCurrentPlayer().getNick());
         TurnStatus turnStatus = winnerChecker.checkAll(getCurrentPlayer().getNick());
-        configManager.print(board.draw());
+        configurationLoader.print(board.draw());
         if (turnStatus.equals(TurnStatus.WON)) {
             getCurrentPlayer().incrementGamesWon();
             getCurrentPlayer().getResult().increaseScore(3);
-            configManager.println(localizationManager.get("wins") + getCurrentPlayer().getName() + " | " + getPlayerA() + " | " + getPlayerB());
+            configurationLoader.println(localizationLoader.get("wins") + getCurrentPlayer().getName() + " | " + getPlayerA() + " | " + getPlayerB());
             resolveEndOfGame();
         }
         if (turnNumber == board.getArea()) {
             getPlayerA().getResult().increaseScore(1);
             getPlayerB().getResult().increaseScore(1);
-            configManager.println(localizationManager.get("draw") + getCurrentPlayer().getName() + " | " + getPlayerA() + " | " + getPlayerB());
+            configurationLoader.println(localizationLoader.get("draw") + getCurrentPlayer().getName() + " | " + getPlayerA() + " | " + getPlayerB());
             resolveEndOfGame();
         }
         nextTurn();
@@ -64,17 +64,17 @@ class TicTacToeGame extends Game1vs1 {
      */
     private Vector2i handleInputCoords() {
         Scanner scanner = new Scanner(System.in);
-        configManager.println(localizationManager.get("nowplays") + getCurrentPlayer().getName());
+        configurationLoader.println(localizationLoader.get("nowplays") + getCurrentPlayer().getName());
         Vector2i position = new Vector2i();
         Move move;
         do {
-            configManager.print(localizationManager.get("xcoord"));
+            configurationLoader.print(localizationLoader.get("xcoord"));
             position.setX(scanner.nextInt() - 1);
-            configManager.print(localizationManager.get("ycoord"));
+            configurationLoader.print(localizationLoader.get("ycoord"));
             position.setY(scanner.nextInt() - 1);
             move = new BoardMove(position);
         }
-        while (position.getX() < 0 || position.getY() < 0 || position.getX() >= board.getSixeX() || position.getY() >= board.getSixeY() ||
+        while (position.getX() < 0 || position.getY() < 0 || position.getX() >= board.getSizeX() || position.getY() >= board.getSizeY() ||
                 getPlayerA().hasMoved(move) || getPlayerB().hasMoved(move));
         return position;
     }
@@ -88,7 +88,7 @@ class TicTacToeGame extends Game1vs1 {
         getPlayerB().resetMoves();
 
         if (shouldGameEndBasedOnBestOf(3) || shouldGameEndBasedOnInput()) {
-            configManager.println(localizationManager.get("whole") + getCurrentPlayer().getName() + " | " + getPlayerA() + " | " + getPlayerB());
+            configurationLoader.println(localizationLoader.get("whole") + getCurrentPlayer().getName() + " | " + getPlayerA() + " | " + getPlayerB());
             setFinished(true);
         } else {
             setFinished(false);
@@ -109,7 +109,7 @@ class TicTacToeGame extends Game1vs1 {
      * Indicates game should end if player wins bestOf games
      */
     private boolean shouldGameEndBasedOnInput() {
-        configManager.print(localizationManager.get("again"));
+        configurationLoader.print(localizationLoader.get("again"));
         Scanner scanner = new Scanner(System.in);
         return scanner.next().equalsIgnoreCase("n");
     }
