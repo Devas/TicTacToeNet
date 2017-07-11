@@ -1,7 +1,7 @@
 package io.github.devas.managers;
 
 /**
- * Interface representing generic manager which manages non-logic resources.
+ * Marker interface indicating that implementing class should manage some resources.
  */
 interface Manager {
 

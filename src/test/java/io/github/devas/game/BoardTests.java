@@ -77,7 +77,7 @@ public class BoardTests {
     }
 
     public void testIsStringWithBoardRepresentationCorrect() {
-        Board board = new ConsoleBoard(3, 3);
+        ConsoleBoard board = new ConsoleBoard(3, 3);
         softAssert.assertEquals(board.draw(), "* * * \n* * * \n* * * \n");
         board = new ConsoleBoard(3, 4);
         softAssert.assertEquals(board.draw(), "* * * \n* * * \n* * * \n* * * \n");

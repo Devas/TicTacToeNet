@@ -14,7 +14,7 @@ class TicTacToeGame extends Game1vs1 {
     private LocalizationManager localizationManager;
     private ConsoleBoard board;
     private WinnerChecker winnerChecker;
-    private static int turn = 1;
+    private static int turnNumber;
 
     TicTacToeGame(Player playerA, Player playerB, int sizeX, int sizeY, int marksToWin, ConfigurationManager conf, LocalizationManager loc) {
         super(playerA, playerB);
@@ -32,7 +32,8 @@ class TicTacToeGame extends Game1vs1 {
     }
 
     private void runSingleTurn() {
-        configManager.println(localizationManager.get("turn") + turn + " ***");
+        turnNumber++;
+        configManager.println(localizationManager.get("turn") + turnNumber + " ***");
         configManager.println(getPlayerA() + " | " + getPlayerB());
         Position2D position = handleInputCoords();
         BoardMove playersMove = new BoardMove(position);
@@ -46,14 +47,13 @@ class TicTacToeGame extends Game1vs1 {
             configManager.println(localizationManager.get("wins") + getCurrentPlayer().getName() + " | " + getPlayerA() + " | " + getPlayerB());
             resolveEndOfGame();
         }
-        if (turn == board.getArea()) {
+        if (turnNumber == board.getArea()) {
             getPlayerA().getResult().increaseScore(1);
             getPlayerB().getResult().increaseScore(1);
             configManager.println(localizationManager.get("draw") + getCurrentPlayer().getName() + " | " + getPlayerA() + " | " + getPlayerB());
             resolveEndOfGame();
         }
         nextTurn();
-        turn++;
     }
 
     /**
@@ -90,7 +90,7 @@ class TicTacToeGame extends Game1vs1 {
         } else {
             setFinished(false);
             board.reset();
-            turn = 0;
+            turnNumber = 0;
 //            nextTurn()
         }
     }

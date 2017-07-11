@@ -10,7 +10,7 @@ import static io.github.devas.net.TimeStamp.getTimeStamp;
 
 class GameServer implements Server {
 
-    private int port = 6789;
+    private SocketSettings settings = new SocketSettings(6789);
     private int connections;
     private HashMap<Integer, ServerSideGame> games = new HashMap<>(); // maps games with unique id
     private boolean finished = false;
@@ -26,7 +26,7 @@ class GameServer implements Server {
 
     private void startServer() {
         try {
-            ServerSocket serverSocket = new ServerSocket(port);
+            ServerSocket serverSocket = new ServerSocket(settings.getPort());
             System.out.println(getTimeStamp() + "Server initialized and running");
             do {
                 System.out.println("\n" + getTimeStamp() + "Connections alive: " + connections + " | Listening for net connection ...");

@@ -23,8 +23,8 @@ class Main {
 
         configManager.println(localizationManager.get("greeting"));
 
-        HumanPlayer playerO = new HumanPlayer(configManager.get("playera"), "o");
-        HumanPlayer playerX = new HumanPlayer(configManager.get("playerb"), "x");
+        HumanPlayer playerO = new HumanPlayer(configManager.get("playera"), Symbol.O.asString);
+        HumanPlayer playerX = new HumanPlayer(configManager.get("playerb"), Symbol.X.asString);
 
         Position2D boardSize = askForBoardSize(configManager, localizationManager);
 
@@ -48,8 +48,7 @@ class Main {
      * Add new languages by adding new cases and .properties files
      */
     private String askForLocale(ConfigurationManager configManager) {
-        configManager.println("Locale settings");
-        configManager.print("'E' English | 'P' Polish | Press key: ");
+        configManager.println("Locale settings | 'E' English | 'P' Polish | Press key: ");
         Scanner s = new Scanner(System.in);
         String lang;
 

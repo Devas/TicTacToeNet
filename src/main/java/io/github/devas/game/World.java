@@ -1,7 +1,8 @@
 package io.github.devas.game;
 
 /**
- * Generic interface for more specific worlds. It represents the place where net io.github.devas.game takes place.
+ * Marker interface indicating that implementing class should be used for storing world information
+ * where net game takes place.
  */
 interface World {
 

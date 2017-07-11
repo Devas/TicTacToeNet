@@ -8,8 +8,7 @@ class GameSettings implements Settings {
         this.maxNumberOfPlayers = maxNumberOfPlayers;
     }
 
-    @Override
-    public int getMaxNumberOfPlayers() {
+    int getMaxNumberOfPlayers() {
         return maxNumberOfPlayers;
     }
 

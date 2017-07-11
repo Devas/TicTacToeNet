@@ -1,6 +1,6 @@
 package io.github.devas.game;
 
-abstract class Board implements World2D {
+abstract class Board implements World {
 
     final int sixeX;
     final int sixeY;
@@ -15,9 +15,6 @@ abstract class Board implements World2D {
         this.board = new String[sixeX][sixeY];
         setAll(FILL_UP_STRING);
     }
-
-    @Override
-    public abstract String draw();
 
     int getSixeX() {
         return sixeX;

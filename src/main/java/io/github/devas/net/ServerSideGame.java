@@ -9,7 +9,7 @@ import java.util.List;
 class ServerSideGame implements Game {
 
     private int gameId;
-    private Settings settings;
+    private GameSettings settings;
     private List<ClientInfo> clients;
 
     ServerSideGame(int gameId) {

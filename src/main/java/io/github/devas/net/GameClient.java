@@ -1,12 +1,14 @@
 package io.github.devas.net;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.Socket;
 
 class GameClient implements Client {
 
-    private int port = 6789;
-    private String host = "localhost";
+    private SocketSettings settings = new SocketSettings(6789, "localhost");
     private final String EXIT_MESSAGE = "quit";
     private boolean finished = false;
 
@@ -17,7 +19,7 @@ class GameClient implements Client {
 
     private void startClient() {
         try {
-            Socket socket = new Socket(host, port);
+            Socket socket = new Socket(settings.getHost(), settings.getPort());
             do {
                 BufferedReader fromUser = new BufferedReader(new InputStreamReader(System.in));
                 String messageFromUser = fromUser.readLine();

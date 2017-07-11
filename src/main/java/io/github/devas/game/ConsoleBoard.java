@@ -1,6 +1,6 @@
 package io.github.devas.game;
 
-class ConsoleBoard extends Board {
+class ConsoleBoard extends Board implements Drawable {
 
     ConsoleBoard(int sixeX, int sixeY) {
         super(sixeX, sixeY);
